@@ -197,7 +197,7 @@ processFilesStaceyCarlon= function(
 
 write.csv.Nora = function(rv, basename ) {
   write.csv( rv$peopleRows[,-9], paste(basename, "Summary.csv",sep=""))
-  write.csv( rv$daydetails, paste(basename, "Details.csv",sep=""))
+  write.csv( rv$dayDetails, paste(basename, "Details.csv",sep=""))
 }
   
 #############################################################################
