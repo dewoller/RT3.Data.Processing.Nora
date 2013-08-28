@@ -55,7 +55,7 @@ total value and 10 minute bouts
 #############################################################################
 
 processFilesNora = function(
-  basePath="~/mydoc/research/noraShields/2013-02/study2/"
+  basePath="~/mydoc/research/noraShields/data/Aug27-2013/"
   ,
   fileNameCSV="files2Process.csv"
   ) {
@@ -63,7 +63,8 @@ processFilesNora = function(
   
   
   files=read.csv(paste(basePath, fileNameCSV, sep=""),stringsAsFactors=FALSE)
-  files$base=gsub("^DS_PRT_trial_(.*)_files_for_Dennis$","\\1",files$base,perl=TRUE)
+  files$base=files$filename
+  files$chunk=files$filename
   files$fullPath=paste(basePath, files$filename, sep="")
   thresholds=c(247,275,302,832,926,1018)
   peopleRows=list()
