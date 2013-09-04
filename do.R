@@ -53,7 +53,7 @@ total value and 10 minute bouts
 
 "
 #############################################################################
-
+ 
 processFilesNora = function(
   basePath="~/mydoc/research/noraShields/data/Aug27-2013/"
   ,
@@ -72,7 +72,12 @@ processFilesNora = function(
   for(i in 1:length(files[,1])){
     print(paste("processing row",i,files[i,]$fullPath))
     # process this file
-    fileRow= markCompliant(files[i,]$fullPath)
+    if( files[i,]$Reverse == "R") {
+      csv = readCountsDataRT3(files[i,]$fullPath, "%m/%d/%Y" )
+    } else {
+      csv = readCountsDataRT3(files[i,]$fullPath , "%d/%m/%Y")
+    }
+    fileRow= markCompliant(csv, files[i,]$fullPath)
     fileRow$fileIndex=i  
     fileRow$filename=files[i,]$filename
     peopleRows=rbind(peopleRows, fileRow)
@@ -118,6 +123,7 @@ processFilesNora = function(
   rv$peopleRows=peopleRows
   rv$dayDetails=dayDetails
   rv$files=files
+  write.csv.Nora(rv, basename="/tmp/output")
   return(rv)
 }
 
